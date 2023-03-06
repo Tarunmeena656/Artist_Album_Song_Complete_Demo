@@ -1,0 +1,1025 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Artist_Album_Song_Swagger_Demo",
+    "description": "Rest Api in swagger",
+    "contact": {
+      "name": "Tarun meena",
+      "email": "meenatarun65@gmail.com",
+      "url": "http://localhost:8000/api_docs/"
+    }
+  },
+  "basepath": "/",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Register Artist",
+      "description": "Register "
+    },
+    {
+      "name": "Login",
+      "description": "Login for taking a token"
+    },
+    {
+      "name": "Artist",
+      "description": "Artist API"
+    },
+    {
+      "name": "Album",
+      "description": "Artist's Album API"
+    },
+    {
+      "name": "Song",
+      "description": "Artist Allbum's Song API"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [{
+    "BearerAuth": []
+  }],
+  "paths": {
+    "/artists": {
+      "get": {
+        "tags": ["Artist"],
+        "summary": "Get all Artist",
+        "description": "This api is used for getting all artist.",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Artists"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security":[],
+        "tags": ["Register Artist"],
+        "summary": "Post Artist",
+        "description": "This API is used to post the artist",
+        "operatinId": "RegisterArtist",
+        "requestBody": {
+          "description": "Enter Your Information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "artistName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "Ok"
+          }
+        }
+      }
+    },
+    "/artists/{artistId}": {
+      "parameters": [
+        {
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Artist"],
+        "summary": "Get a Artist By ID",
+        "description": "API for Artist Fetch by id",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Artists"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Artist"],
+        "summary": "Update a artist using artistId",
+        "description": "Update a artist",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "artistName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SuccessFully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Artists"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Artist"],
+        "summary": "Delete a Artist By id",
+        "description": "This API is used to delete the artist",
+        "responses": {
+          "200": {
+            "description": "Successfully Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Artists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Login Artist",
+        "description": "This api is used for Login",
+        "operatinId": "LoginArtist",
+        "requestBody": {
+          "description": "Enter a Email and Password",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully Login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Artists"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/artists/{artistId}/albums": {
+      "parameters": [
+        {
+          "description": "Enter your artistId to create a album",
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": ["Album"],
+        "summary": "Created a Album",
+        "description": "Api used for create a album",
+        "operatinId": "CreateAlbum",
+        "requestBody": {
+          "description": "Please Enter a Info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "albumName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created Album",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "albumName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "count_Likes": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Album"],
+        "summary": "Fetch ALL Album",
+        "description": "This API is used to fetch all album",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "albumName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "count_Likes": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}": {
+      "parameters": [
+        {
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "name": "albumId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Album"],
+        "summary": "Fetch album by Id",
+        "description": "This API is used to fetch album using id",
+        "responses": {
+          "200": {
+            "description": "OK ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "albumName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "count_Likes": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Album"],
+        "summary": "update album by Id",
+        "description": "This API is used to fetch album using id",
+        "requestBody": {
+          "description": "Enter your Info to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "albumName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "albumName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "count_Likes": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Album"],
+        "summary": "Delete album by Id",
+        "description": "This API is used to delete album using id",
+        "responses": {
+          "200": {
+            "description": "OK ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "albumName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "count_Likes": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/like": {
+      "put": {
+        "parameters": [
+          {
+            "name": "artistId",
+            "in": "path",
+            "type": "string"
+          },
+          {
+            "name": "albumId",
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "tags": ["Album"],
+        "summary": "Like a album by Id",
+        "description": "This API is used to delete album using id",
+        "responses": {
+          "200": {
+            "description": "Like Successfully ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "LikeByArtist": {
+                      "type": "string"
+                    },
+                    "LikeInAlbum": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/dislike": {
+      "put": {
+        "parameters": [
+          {
+            "name": "artistId",
+            "in": "path",
+            "type": "string"
+          },
+          {
+            "name": "albumId",
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "tags": ["Album"],
+        "summary": "dislike a album by Id",
+        "description": "This API is used to delete album using id",
+        "responses": {
+          "200": {
+            "description": "Dislike Successfully ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "LikeByArtist": {
+                      "type": "string"
+                    },
+                    "LikeInAlbum": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/Total_Likes": {
+      "get": {
+        "parameters": [
+          {
+            "name": "artistId",
+            "in": "path",
+            "type": "string"
+          },
+          {
+            "name": "albumId",
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "tags": ["Album"],
+        "summary": "Like a album by Id",
+        "description": "This API is used to delete album using id",
+        "responses": {
+          "200": {
+            "description": "Like Successfully ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "albumName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "count_Likes": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/songs": {
+      "parameters": [
+        {
+          "description": "Enter a ArtistId",
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a AlbumId",
+          "name": "albumId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "post": {
+        "tags": ["Song"],
+        "summary": "Post a Song",
+        "description": "This API is used to post a song",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "songName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created a Song",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "songName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "albumId": {
+                      "type": "object"
+                    },
+                    "count_comment": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Song"],
+        "summary": "Get All Song",
+        "description": "This API is used to get all song",
+        "responses": {
+          "200": {
+            "description": "Successfull",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "songName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "albumId": {
+                      "type": "object"
+                    },
+                    "count_comment": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/songs/{songId}": {
+      "parameters": [
+        {
+          "description": "Enter a artistId",
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a AlbumId",
+          "name": "albumId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a songId",
+          "name": "songId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Song"],
+        "summary": "Get  song by id",
+        "description": "This API is get song",
+        "responses": {
+          "200": {
+            "description": "Successfully fetch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "songName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "albumId": {
+                      "type": "object"
+                    },
+                    "count_comment": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Song"],
+        "summary": "update  song",
+        "description": "This API is update song",
+        "requestBody": {
+          "description": "Enter a Info to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "songName": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SuccessFully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "songName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "albumId": {
+                      "type": "object"
+                    },
+                    "count_comment": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Song"],
+        "summary": "delete song",
+        "description": "This API is delete song",
+        "responses": {
+          "200": {
+            "description": "Successfully Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "songName": {
+                      "type": "string"
+                    },
+                    "artistId": {
+                      "type": "object"
+                    },
+                    "albumId": {
+                      "type": "object"
+                    },
+                    "count_comment": {
+                      "type": "Number"
+                    },
+                    "isDeleted": {
+                      "type": "Boolean"
+                    },
+                    "deletedAt": {
+                      "type": "Date"
+                    },
+                    "deletedBy": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/songs/{songId}/comment": {
+      "parameters": [
+        {
+          "description": "Enter a artistId",
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a AlbumId",
+          "name": "albumId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a songId",
+          "name": "songId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": ["Song"],
+        "summary": "Comment a song ",
+        "description": "This API is used to comment ",
+        "responses": {
+          "200": {
+            "description": "comment Successfully ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "CommentByArtist": {
+                      "type": "object"
+                    },
+                    "CommentInSong": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/songs/{songId}/DeleteComment": {
+      "parameters": [
+        {
+          "description": "Enter a artistId",
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a AlbumId",
+          "name": "albumId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a songId",
+          "name": "songId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "put": {
+        "tags": ["Song"],
+        "summary": "Comment delete",
+        "description": "This API is used to delete comment",
+        "responses": {
+          "200": {
+            "description": "Delete Comment Successfully ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "CommentByArtist": {
+                      "type": "object"
+                    },
+                    "CommentInSong": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artists/{artistId}/albums/{albumId}/songs/{songId}/Total_Comment": {
+      "parameters": [
+        {
+          "description": "Enter a artistId",
+          "name": "artistId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a AlbumId",
+          "name": "albumId",
+          "in": "path",
+          "type": "string"
+        },
+        {
+          "description": "Enter a songId",
+          "name": "songId",
+          "in": "path",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Song"],
+        "summary": "Total Comment",
+        "description": "This API is used to get total comment",
+        "responses": {
+          "200": {
+            "description": "Like Successfully ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "CommentByArtist": {
+                      "type": "object"
+                    },
+                    "CommentInSong": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "Artists": {
+      "type": "object",
+      "properties": {
+        "artistName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "isDeleted": {
+          "type": "Boolean"
+        },
+        "deletedBy": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": "Boolean"
+        }
+      }
+    }
+  }
+}
