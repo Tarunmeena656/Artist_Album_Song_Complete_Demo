@@ -19,6 +19,8 @@
     "http-errors": "^2.0.0",
     "joi": "^17.8.3",
     "jsonwebtoken": "^9.0.0",
+    "migrate-mongo": "^9.0.0",
+    "mongodb": "^5.1.0",
     "mongoose": "^6.10.0",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
