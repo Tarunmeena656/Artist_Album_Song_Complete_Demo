@@ -9,6 +9,7 @@ const {
   deleteArtistById,
   loginArtist,
 } = require("../controller/artistController");
+
 const hasRole = require("../middleware/auth");
 const {
   loginValidation,
